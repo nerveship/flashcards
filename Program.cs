@@ -6,8 +6,7 @@ namespace Program
     {
         static void Main()
         {
-            Menu.MainMenu();
-            Console.ReadKey();
+            Menu.MainMenu(); 
         }
     }
 }
