@@ -9,6 +9,7 @@ internal class Menu
 {
     internal static void MainMenu()
     {
+        StackActions stackActions = new();
         Console.Clear();
         bool closeApp = false;
 
@@ -25,15 +26,15 @@ internal class Menu
             switch (UserChoice)
             {
                 case 1:
-                    Console.WriteLine("View current stack page");
+                    stackActions.ViewStack();
                     break;
 
                 case 2:
-                    Console.WriteLine("Create new stack page");
+                    stackActions.CreateStack();
                     break;
 
                 case 3:
-                    Console.WriteLine("Delete stack page");
+                    stackActions.DeleteStack();
                     break;
 
                 case 4:
