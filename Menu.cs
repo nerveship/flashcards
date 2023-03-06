@@ -10,11 +10,11 @@ internal class Menu
     internal static void MainMenu()
     {
         StackActions stackActions = new();
-        Console.Clear();
         bool closeApp = false;
 
         while (closeApp == false)
         {
+            Console.Clear();
             Console.WriteLine("---------------------------");
             Console.WriteLine("MAIN MENU");
             Console.WriteLine("What would you like to do?");

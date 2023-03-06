@@ -18,7 +18,13 @@ namespace flashcards
         internal void CreateStack()
         {
             Console.Clear();
-            Console.WriteLine("Create stack page");
+            Console.WriteLine("What would you like your new stack to be called?\nType 0 to return to the main menu");
+            string StackName = Console.ReadLine();
+
+            if (StackName == "0")
+            {
+                Menu.MainMenu();
+            }
         }
 
         internal void DeleteStack()
