@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "flashcards": {
+      "commandName": "Project",
+      "workingDirectory": "F:\\Creative Projects\\programming\\C#\\flashcards"
+    }
+  }
+}

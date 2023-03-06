@@ -1,4 +1,5 @@
 ﻿using flashcards;
+using Microsoft.Data.Sqlite;
 
 namespace Program
 {
@@ -6,7 +7,19 @@ namespace Program
     {
         static void Main()
         {
-            Menu.MainMenu(); 
+            using (var connection = new SqliteConnection(Helpers.ConnectionString))
+            {
+                connection.Open();
+                var tableCmd = connection.CreateCommand();
+
+                tableCmd.CommandText = @"CREATE TABLE IF NOT EXISTS flashcards (
+                                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                Name TEXT,
+                                Cards INTEGER)";
+                tableCmd.ExecuteNonQuery();
+                connection.Close();
+            }
+            Menu.MainMenu();
         }
     }
 }

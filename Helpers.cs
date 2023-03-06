@@ -20,5 +20,7 @@ namespace flashcards
             }
             return ConvertedInput;
         }
+
+        internal static string ConnectionString = @"Data Source=Flashcards.db";
     }
 }
