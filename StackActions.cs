@@ -12,7 +12,51 @@ namespace flashcards
         internal void ViewStack()
         {
             Console.Clear();
-            Console.WriteLine("View stack page");
+            
+            using (var connection = new SqliteConnection(Helpers.ConnectionString))
+            {
+                connection.Open();
+
+                var ViewAll = connection.CreateCommand();
+
+                ViewAll.CommandText =
+                    $"SELECT * FROM flashcards ";
+
+                List<Flashcard> tabledata = new();
+
+                SqliteDataReader reader = ViewAll.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        tabledata.Add(
+                            new Flashcard
+                            {
+                                id = reader.GetInt32(0),
+                                name = reader.GetString(1),
+                                cards = reader.GetInt32(3)
+                            });
+                    }
+                }
+
+                else
+                {
+                    Console.WriteLine("No rows found");
+                    Console.ReadKey();
+                    Menu.MainMenu();
+                }
+
+                connection.Close();
+
+                foreach (var ent in tabledata)
+                {
+                    Console.WriteLine($"ID: {ent.id}\n" +
+                        $"Name: {ent.name}\n" +
+                        $"Cards: {ent.cards}\n");
+                }
+                Console.ReadKey();
+            }
         }
 
         internal void CreateStack()
@@ -25,6 +69,20 @@ namespace flashcards
             {
                 Menu.MainMenu();
             }
+
+            using (var connection = new SqliteConnection(Helpers.ConnectionString))
+            {
+                connection.Open();
+                var tableCmd = connection.CreateCommand();
+
+                tableCmd.CommandText = $@"CREATE TABLE IF NOT EXISTS {StackName} (
+                                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                        Name TEXT,
+                                        Cards INTEGER)";
+
+                tableCmd.ExecuteNonQuery();
+                connection.Close();
+            }
         }
 
         internal void DeleteStack()
@@ -33,4 +91,11 @@ namespace flashcards
             Console.WriteLine("Delete stack page");
         }
     }
+}
+
+internal class Flashcard
+{
+    public int id { get; set; }
+    public string name { get; set; }
+    public int cards { get; set; }
 }
